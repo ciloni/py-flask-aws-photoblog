@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Cadastro{% endblock %}
+{% block css %}{% endblock %}
+{% block content %}
+<form action={{ url_for('users_routes.create') }} method="post">
+    <div class="container w-50">
+        
+            <div class="text-center">
+                <h3>Cadastre-se</h3>
+            </div>
+        
+            <div class="row">
+                <div class="col-5">
+                    <label class="form-label">Nome:</label>
+                    <input class="form-control" id="firstname" name="firstname" type="text" required placeholder="João">
+                </div>
+                <div class="col">
+                    <label class="form-label">Sobrenome:</label>
+                    <input class="form-control" id="lastname" name="lastname" type="text" required placeholder="da Silva">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">E-mail:</label>
+                    <input class="form-control" id="email" name="email" type="email" required placeholder="nome@provedor.com.br">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">Conta:</label>
+                    <input class="form-control" id="account" name="account" type="text" required placeholder="exnomesobrenome">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">Senha:</label>
+                    <input class="form-control" id="password" name="password" type="password" placeholder="********">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary mb-3" type="submit">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block js %}{% endblock %}
