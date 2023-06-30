@@ -1,8 +1,9 @@
 from database import db
 from werkzeug.security import generate_password_hash
 from datetime import datetime
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     # Exemplo de tabela com 2 tuplas, registros
     # PK          homonimos       homonimos     Campo

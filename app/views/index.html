@@ -2,6 +2,6 @@
 {% block title %}Bem vindo ao fotoblog{% endblock %}
 {% block css %}{% endblock %}
 {% block content %}
-<h1>Página principal</h1>
+<h1>Página principal {% if current_user.is_authenticated == True %} {% print current_user.user_account %} {% endif %}</h1>
 {% endblock %}
 {% block js %}{% endblock %}
