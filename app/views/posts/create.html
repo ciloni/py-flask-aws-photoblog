@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Criar post{% endblock %}
+{% block css %}{% endblock %}
+{% block content %}
+<form action={{ url_for('posts_routes.create') }} method="post">
+    <div class="container w-50">
+        
+            <div class="text-center">
+                <h3>Crie sua postagem</h3>
+            </div>
+        
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">Foto:</label>
+                    <input class="form-control" id="file" name="file" type="file" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">Descrição:</label>
+                    <input class="form-control" id="decription" name="decription" type="textarea" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary mb-3" type="submit">Criar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block js %}{% endblock %}

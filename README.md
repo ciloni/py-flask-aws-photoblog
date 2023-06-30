@@ -1,2 +1,4 @@
-# py-flask-aws-photoblog
- Projeto em python flask com hospedagem na AWS
+# Documentação
+# Flask:  https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
+
+# aprender migrations para "migrate" para ir atualizando o banco de dados
