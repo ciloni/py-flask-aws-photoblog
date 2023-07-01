@@ -1,31 +1,46 @@
 from flask import render_template, request
-from flask_login import login_required
-# from src.models.UsersModel import User, db
-# from src.models.PostsModel import Posts
+from flask_login import login_required, current_user
+import os, random
+import boto3
+from src.models.PostsModel import Post, db
+
+def upload_file(filename, bucket):
+    
+    objectname = filename
+    s3client = boto3.client('s3')
+    response = s3client.upload_file(filename, bucket, objectname)
+    os.remove(filename)
+
+    return response
+
 
 @login_required
 def create():
+    # CONFIGURAÇÕES DE UPLOAD
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg','gif'}
+    BUCKET = 'professorphotoblog'
     # VERIFICA SE VISITANTE VEIO DE UM FORMULARIO "POST"
     if request.method == 'POST':
-        # firstname = request.form['firstname']
-        # lastname =  request.form['lastname']
-        # email = request.form['email']
-        # account = request.form['account']
-        # password = request.form['password']
-        # user = User(user_firstname = firstname,
-        #     user_lastname = lastname,
-        #     user_email = email,
-        #     user_account = account,
-        #     user_password = password,
-        #     user_is_active = 1,
-        #     user_is_delete = 0
-        # )
-        # db.session.add(user)
-        # # commit é o comando q confirma a persistencia
-        # db.session.commit()
-        # # rollback é o comando q cancela 
-        # return "Usuário criado com sucesso"
-        return "TO DO CRIAR UPLOAD E PERSISTENCIA DO POST"
+        description = request.form['description']
+        file =  request.files['file']
+        # variavel filename recebe apenas o nome do arquivo e a extensao fica com fileext...
+        filename, fileextension = os.path.splitext(file.filename)
+        fileextension = fileextension.replace(".","")
+        print(fileextension)
+        if fileextension in ALLOWED_EXTENSIONS:
+            filename = current_user.user_account+str(random.randrange(1,999999999))+'.'+fileextension
+            file.save(file.filename)
+            os.rename(file.filename,filename)
+            upload_file(f"{filename}", BUCKET)
+            post = Post(user_id = current_user.id,
+                        post_description=description,
+                        post_mediatype=fileextension,
+                        post_mediapath="https://professorphotoblog.s3.us-east-2.amazonaws.com/",
+                        post_filename=filename
+                        )
+            db.session.add(post)
+            db.session.commit()
+            return "Post criado"
     
     return render_template('posts/create.html')
 

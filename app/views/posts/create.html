@@ -2,7 +2,7 @@
 {% block title %}Criar post{% endblock %}
 {% block css %}{% endblock %}
 {% block content %}
-<form action={{ url_for('posts_routes.create') }} method="post">
+<form action={{ url_for('posts_routes.create') }} method="post" enctype='multipart/form-data'>
     <div class="container w-50">
         
             <div class="text-center">
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col">
                     <label class="form-label">Descrição:</label>
-                    <input class="form-control" id="decription" name="decription" type="textarea" required>
+                    <input class="form-control" id="description" name="description" type="textarea" required>
                 </div>
             </div>
             <div class="row">
