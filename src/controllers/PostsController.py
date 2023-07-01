@@ -26,7 +26,7 @@ def create():
         # variavel filename recebe apenas o nome do arquivo e a extensao fica com fileext...
         filename, fileextension = os.path.splitext(file.filename)
         fileextension = fileextension.replace(".","")
-        print(fileextension)
+
         if fileextension in ALLOWED_EXTENSIONS:
             filename = current_user.user_account+str(random.randrange(1,999999999))+'.'+fileextension
             file.save(file.filename)
