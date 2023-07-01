@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from src.models.UsersModel import User, db
+from src.models.PostsModel import Post
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -30,3 +31,15 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('app_routes.index'))
+
+def profile(account):
+    if User.query.filter_by(user_account=account).count() == 0:
+        # TO DO
+        # Retornar mensagem que a conta(pagina) não foi encontrada e redirecionar
+        return "Conta não existe."
+    else:
+        user = db.one_or_404(db.select(User).filter_by(user_account=account))
+        posts = Post.query.filter_by(user_id=user.id)
+        return render_template('profile.html',
+                               user = user,
+                               posts = posts)
