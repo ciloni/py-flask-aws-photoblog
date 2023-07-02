@@ -6,7 +6,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 
 def index():
     return render_template('index.html',
-                           current_user = current_user,
+                           currentuser = current_user,
                            )
 
 def login():
@@ -32,13 +32,13 @@ def logout():
     logout_user()
     return redirect(url_for('app_routes.index'))
 
-def profile(account):
-    if User.query.filter_by(user_account=account).count() == 0:
+def profile(useraccount):
+    if User.query.filter_by(user_account=useraccount).count() == 0:
         # TO DO
         # Retornar mensagem que a conta(pagina) não foi encontrada e redirecionar
         return "Conta não existe."
     else:
-        user = db.one_or_404(db.select(User).filter_by(user_account=account))
+        user = db.one_or_404(db.select(User).filter_by(user_account=useraccount))
         posts = Post.query.filter_by(user_id=user.id)
         return render_template('profile.html',
                                user = user,

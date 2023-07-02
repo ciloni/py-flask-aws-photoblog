@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}Ver postagem do {{user.user_account}} {% endblock %}
+{% block css %}{% endblock %}
+{% block content %}
+<div class="container">
+    <div>
+        <p></p>
+        <p class="text-center"><img src={% print post.post_mediapath+post.post_filename %} class="width="100%" height="100%""></p>
+    </div>
+
+    <div>
+    <form action={{ url_for('posts_routes.update', useraccount = user.user_account, postid = post.id) }} method="post" id="formatualizar" name="formatualizar">
+        <p class="text-center"><textarea name="postdescription" rows="3" class="form-control" >{% print post.post_description %}</textarea></p>
+    </form>
+    </div>
+    <div>
+        {% if currentuser.id == user.id  %} 
+        <p class="text-center">
+            <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#apagarmodal" role="button">Atualizar</a></p>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="apagarmodal" tabindex="-1" aria-labelledby="apagarmodal" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Deseja atualizar a postagem?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        Esta operação não pode ser revertida.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" id="submit" name="submit" class="btn btn-danger">Atualizar</button>
+    </div>
+    </div>
+</div>
+</div>
+
+</form>
+{% endblock %}
+{% block js %}
+<script src={{ url_for('static',filename='js/jquery-3.7.0.min.js') }}></script>
+<script>
+$('#submit').click(function(){
+    $('#formatualizar').submit();
+});
+</script>
+{% endblock %}

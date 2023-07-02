@@ -17,8 +17,7 @@
             <p class="card-text">{% print post.post_description %}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                <a class="btn btn-sm btn-outline-secondary" href={{ url_for('posts_routes.read', useraccount=user.user_account, postid=post.id) }} role="button">Ver foto</a>
                 </div>
                 <small class="text-body-secondary">{% print post.post_datecreated %}</small>
             </div>
