@@ -1,4 +1,5 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
+from flask_login import current_user
 from src.models.UsersModel import User, db
 
 def create():
@@ -21,9 +22,10 @@ def create():
         # commit é o comando q confirma a persistencia
         db.session.commit()
         # rollback é o comando q cancela 
-        return "Usuário criado com sucesso"
+        return redirect(url_for('app_routes.login'))
     
-    return render_template('users/create.html')
+    return render_template('users/create.html',
+                           currentuser = current_user)
 
 def read():
     return "metodo de leitura e exibicao dos dados"

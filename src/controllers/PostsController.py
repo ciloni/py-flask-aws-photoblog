@@ -41,9 +41,11 @@ def create():
                         )
             db.session.add(post)
             db.session.commit()
-            return "Post criado"
+            return redirect(url_for('app_routes.profile', useraccount = current_user.user_account))
     
-    return render_template('posts/create.html')
+    return render_template('posts/create.html',
+                           currentuser = current_user
+                           )
 
 def read(useraccount, postid):
     if User.query.filter_by(user_account=useraccount).count() == 0 or Post.query.filter_by(id=postid).count() == 0:

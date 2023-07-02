@@ -1,7 +1,14 @@
-{% extends "layout.html" %}
-{% block title %}Login no fotoblog{% endblock %}
-{% block css %}<link href={{  url_for('static',filename='css/login.css') }} rel="stylesheet">{% endblock %}
-{% block content %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login no fotoblog</title>
+    <link href={{  url_for('static',filename='css/bootstrap.min.css') }} rel="stylesheet">
+    <link href={{  url_for('static',filename='css/login.css') }} rel="stylesheet">
+  </head>
+
+<html
 <body class="text-center">
     <form class="form-signin" method="POST" action={{ url_for('app_routes.login')}}>
       <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
@@ -19,5 +26,3 @@
       <p class="mt-5 mb-3 text-muted">Ainda não tem uma conta? <a href={{ url_for('users_routes.create')}}>Cadastre-se</a></p>
     </form>
   </body>
-{% endblock %}
-{% block js %}{% endblock %}

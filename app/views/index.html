@@ -2,6 +2,44 @@
 {% block title %}Bem vindo ao fotoblog{% endblock %}
 {% block css %}{% endblock %}
 {% block content %}
-<h1>Página principal {% if currentuser.is_authenticated == True %} {% print currentuser.user_account %} {% endif %}</h1>
+<div class="container-fluid">
+    <h5 class="text-center">Bem vindo ao fotoblog {% if currentuser.is_authenticated == True %} {% print currentuser.user_account %} {% endif %}</h5>
+    <div>
+        <p>No nosso fotoblog é possível compartilhar seus momentos.</p>
+        {% if currentuser.is_authenticated == False %} 
+        <p><a href="{{ url_for('app_routes.login')}}"> Entre e começe a compartilhar.</a></p> 
+        {% endif %}
+        <p>Confira alguns dos momentos compartilhados:</p>
+        <main>
+
+            <div class="album py-5 bg-body-tertiary">
+                <div class="container">
+            
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    {% for post, user in postsusers: %}
+                    <div class="col">
+                    <div class="card shadow-sm">
+                        <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/></svg> -->
+                        <img src={% print post.post_mediapath+post.post_filename %} class="width="100%" height="225"">
+                        <div class="card-body">
+                        <p class="card-text">{% print post.post_description %}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary" href={{ url_for('app_routes.profile', useraccount=user.user_account) }} role="button">Ver perfil</a>
+                            </div>
+                            <small class="text-body-secondary">{% print post.post_datecreated %}</small>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+</div>
+
 {% endblock %}
 {% block js %}{% endblock %}

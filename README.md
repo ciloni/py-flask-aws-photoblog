@@ -2,6 +2,7 @@
 # Flask:  https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
 # aws https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html
 # SLAlchquemy : https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/queries/
+# Bootstrap: getbootstrap.com
 
 
 # Tutoriais

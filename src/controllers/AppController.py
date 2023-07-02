@@ -5,8 +5,10 @@ from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
 
 def index():
+    postsusers = db.session.query(Post,User).filter(Post.user_id == User.id).limit(12)
     return render_template('index.html',
                            currentuser = current_user,
+                           postsusers = postsusers
                            )
 
 def login():
@@ -25,7 +27,8 @@ def login():
         # to do "flash" retornar para  pagagina de login com o erro de email não localizado
         return redirect(url_for('app_routes.login'))
 
-    return render_template('login.html')
+    return render_template('login.html',
+                           currentuser = current_user)
 
 @login_required
 def logout():
@@ -42,4 +45,5 @@ def profile(useraccount):
         posts = Post.query.filter_by(user_id=user.id)
         return render_template('profile.html',
                                user = user,
-                               posts = posts)
+                               posts = posts,
+                               currentuser = current_user)
